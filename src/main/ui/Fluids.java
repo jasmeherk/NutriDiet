@@ -1,10 +1,11 @@
 package ui;
+// Class for fluid type
 
 public class Fluids {
-    String fluidName;
-    int quantityinML;
+    public String fluidName;
+    public int quantityinML;
 
-    Fluids(String fluidName, int quantityinML) {
+    public Fluids(String fluidName, int quantityinML) {
         this.fluidName = fluidName;
         this.quantityinML = quantityinML;
     }

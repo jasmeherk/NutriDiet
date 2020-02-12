@@ -3,10 +3,6 @@
 ## CalorieTracker and Recommender
 
 
-
-An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
-the bold and italic fonts correctly but they will appear correctly on GitHub.
-
 NutriDiet is a *CalorieTracking* app which will act as a diary for the food
 that you eat and the fluids you consume. In addition to this functionality, 
 it is also a *recommender* in the sense that it will tell you what to work on 

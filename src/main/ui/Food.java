@@ -1,9 +1,5 @@
 package ui;
 
-
-
-import java.util.HashMap;
-
 public class Food {
     String foodName;
     int calories;
