@@ -13,6 +13,7 @@ class CalorieTest {
     Activities act = new Activities(4.0, 6, 6);
     CalorieCounter c = new CalorieCounter();
     Recommender rec = new Recommender();
+    Goals goal = new Goals(63.0, 7, 5);
 
     @Test
     void testBMI() {
@@ -21,7 +22,7 @@ class CalorieTest {
     }
     @Test
     void testGetMessage() {
-        rec.getMessage(0.5, 0.49, 0.55, 0.53);
+        rec.getMessage(0.5, 0.49, 0.55, 0.11);
         rec.getMessage(0.49, 0.5, 0.96, 0.98);
         rec.getMessage(0.8, 0.7, 0.5, 0.41);
         rec.getMessage(0.35, 0.15, 0.11, 0.5);
@@ -97,5 +98,51 @@ class CalorieTest {
     @Test
     void testAddActivity() {
         c.addActivity(act);
+    }
+    @Test
+    void testGetActivity() {
+        c.getActivities();
+    }
+    @Test
+    void testGetFood() {
+        c.getFoods();
+    }
+    @Test
+    void testGetFluids() {
+        c.getFluids();
+    }
+    @Test
+    void testGetDesiredWeight() {
+        assertEquals(63.0,goal.getDesiredWeight());
+    }
+    @Test
+    void testGetDesiredSleep() {
+        assertEquals(7, goal.getDesiredSleep());
+    }
+    @Test
+    void testGetDesiredGymRigour() {
+        assertEquals(5, goal.getDesiredGymRigour());
+    }
+    @Test
+    void testGetDesiredHydrationGoal() {
+        assertEquals(2300, goal.getHydrationGoal());
+    }
+    @Test
+    void testGetFoodName() {
+        assertEquals("Apple", foodItem.getFoodName());
+    }
+
+    @Test
+    void testGetFluidName() {
+        assertEquals("Water", fluidItem1.getFluidName());
+    }
+
+    @Test
+    void testGetQuantityInMl() {
+        assertEquals(500, fluidItem1.getQuantityinML());
+    }
+    @Test
+    void testGetCalories() {
+        assertEquals(100, foodItem.getCalories());
     }
 }
