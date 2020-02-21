@@ -21,26 +21,11 @@ class CalorieTest {
     }
     @Test
     void testGetMessage() {
-        rec.getMessage(0.35, 0.45, 0.11, 0.23);
+        rec.getMessage(0.45, 0.45, 0.55, 0.53);
+        rec.getMessage(0.5, 0.5, 0.5, 0.5);
+        rec.getMessage(0.8, 0.7, 0.9, 0.8);
+        rec.getMessage(0.35, 0.15, 0.11, 0.23);
     }
-    /*
-    @Test
-    void testWeightMessage() {
-
-    }
-    @Test
-    void testHydrationMessage() {
-
-    }
-    @Test
-    void testSleepMessage() {
-
-    }
-    @Test
-    void testGymRigourMessage() {
-
-    }
-     */
     @Test
     void testWeightSigmoid() {
        double x = rec.weightSigmoid(69.0,65);
@@ -53,24 +38,24 @@ class CalorieTest {
     }
     @Test
     void testSleepSigmoid(){
-        double x = rec.hydrationSigmoid(2,2);
+        double x = rec.sleepSigmoid(2,2);
         assertEquals(0.5, x);
     }
     @Test
     void testGymRigourSigmoid() {
-        double x = rec.hydrationSigmoid(3,2);
+        double x = rec.gymRigourSigmoid(3,2);
         assertEquals(0.7310585786300049, x);
     }
-    /*
+
     @Test
     void testGymming() {
-
+        assertEquals(3580, act.gymming(4000));
     }
     @Test
     void testWalking() {
-
+        assertEquals(1840, act.walking(2000));
     }
-    */
+
     @Test
     void testAddSingleFood() {
         c.addFood(foodItem);
@@ -98,6 +83,8 @@ class CalorieTest {
         c.addFood(foodItem);
         c.addFood(foodItem);
         int cal = c.calculateCalories();
+        assertEquals(200, cal);
+        c.addActivity(act);
         assertEquals(200, cal);
     }
     @Test void testCalculateHydration() {
