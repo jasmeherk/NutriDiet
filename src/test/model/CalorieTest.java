@@ -1,7 +1,6 @@
 package model;
 
 import org.junit.jupiter.api.*;
-import ui.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 // This class tests all the user stories
@@ -18,5 +17,72 @@ class CalorieTest {
     void testBMI() {
         double bmiVal = 65.0/(1.8 * 1.8);
        assertEquals(bmiVal, a.calculateBMI());
+    }
+    @Test
+    void testGetMessage() {
+        
+    }
+    @Test
+    void testWeightMessage() {
+
+    }
+    @Test
+    void testHydrationMessage() {
+
+    }
+    @Test
+    void testSleepMessage() {
+
+    }
+    @Test
+    void testGymRigourMessage() {
+
+    }
+    @Test
+    void testSigmoid() {
+
+    }
+    @Test
+    void testWeightSigmoid() {
+
+    }
+    @Test
+    void testHydrationSigmoid() {
+
+    }
+    @Test
+    void testSleepSigmoid(){
+
+    }
+    @Test
+    void testGymRigourSigmoid() {
+
+    }
+    @Test
+    void testGymming() {
+
+    }
+    @Test
+    void testWalking() {
+
+    }
+    @Test
+    void testAddFood() {
+
+    }
+    @Test
+    void testAddFluid() {
+
+    }
+    @Test
+    void testCalculateCalories() {
+
+    }
+    @Test void testCalculateHydration() {
+
+    }
+    @Test
+    void testAddActivity() {
+
     }
 }

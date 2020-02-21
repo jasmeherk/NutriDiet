@@ -1,4 +1,4 @@
-package ui;
+package model;
 // Main class which runs everything
 
 public class Main {

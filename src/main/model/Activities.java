@@ -1,10 +1,10 @@
-package ui;
+package model;
 // Stores user activities
 
 public class Activities {
-    double walk; // Distance walked in Kilometres
-    int sleep; // Duration of sleep in hours
-    int gymmingRigour; // stores hours the user has been gymming
+    public double walk; // Distance walked in Kilometres
+    public int sleep; // Duration of sleep in hours
+    public int gymmingRigour; // stores hours the user has been gymming
     static final int caloriesLostGymming = 70; // Arbitrary Number
     static final int caloriesBurntPerKmOfWalk = 40;
 

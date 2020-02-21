@@ -101,7 +101,7 @@ public class Recommender {
         sigmoidValues.sort(Collections.reverseOrder());
         for (Double d : sigmoidValues) {
             if (d == weightValue) {
-                System.out.println(weightMessage(d));
+                System.out.println(weightMessage(weightValue));
             } else if (d == hydrationValue) {
                 System.out.println(hydrationMessage(hydrationValue));
             } else if (d == sleepValue) {

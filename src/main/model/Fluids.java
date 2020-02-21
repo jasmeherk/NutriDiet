@@ -1,4 +1,4 @@
-package ui;
+package model;
 // Class for fluid type
 
 public class Fluids {
@@ -10,4 +10,11 @@ public class Fluids {
         this.quantityinML = quantityinML;
     }
 
+    public int getQuantityinML() {
+        return quantityinML;
+    }
+
+    public String getFluidName() {
+        return fluidName;
+    }
 }

@@ -1,4 +1,4 @@
-package ui;
+package model;
 //Stores users goals
 
 public class Goals {
@@ -6,7 +6,6 @@ public class Goals {
     double desiredWeight;
     int desiredSleep;
     int desiredGymRigour;
-    int duration; // How much time in days to reach desired goal
 
     public Goals(double desiredWeight, int desiredSleep, int desiredGymRigour) {
         this.desiredWeight = desiredWeight;
@@ -14,5 +13,20 @@ public class Goals {
         this.desiredGymRigour = desiredGymRigour;
     }
 
+    public double getDesiredWeight() {
+        return desiredWeight;
+    }
+
+    public int getDesiredGymRigour() {
+        return desiredGymRigour;
+    }
+
+    public int getDesiredSleep() {
+        return desiredSleep;
+    }
+
+    public static int getHydrationGoal() {
+        return hydrationGoal;
+    }
 }
 
