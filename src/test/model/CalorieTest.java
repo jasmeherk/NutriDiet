@@ -21,10 +21,10 @@ class CalorieTest {
     }
     @Test
     void testGetMessage() {
-        rec.getMessage(0.45, 0.45, 0.55, 0.53);
-        rec.getMessage(0.5, 0.5, 0.5, 0.5);
-        rec.getMessage(0.8, 0.7, 0.9, 0.8);
-        rec.getMessage(0.35, 0.15, 0.11, 0.23);
+        rec.getMessage(0.5, 0.49, 0.55, 0.53);
+        rec.getMessage(0.49, 0.5, 0.96, 0.98);
+        rec.getMessage(0.8, 0.7, 0.5, 0.41);
+        rec.getMessage(0.35, 0.15, 0.11, 0.5);
     }
     @Test
     void testWeightSigmoid() {
@@ -85,7 +85,8 @@ class CalorieTest {
         int cal = c.calculateCalories();
         assertEquals(200, cal);
         c.addActivity(act);
-        assertEquals(200, cal);
+        int cal2 = c.calculateCalories();
+        assertEquals(-380, cal2);
     }
     @Test void testCalculateHydration() {
         c.addFluid(fluidItem1);
