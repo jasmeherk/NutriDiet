@@ -15,7 +15,6 @@ public class CalorieCounter {
     ArrayList<Food> foods;
     ArrayList<Fluids> fluids;
     ArrayList<Activities> activities;
-    Attributes attributes;
     UserInterface ui;
 
     public CalorieCounter() {
@@ -26,10 +25,6 @@ public class CalorieCounter {
         foods = new ArrayList<>();
         fluids = new ArrayList<>();
         activities = new ArrayList<>();
-        ui = new UserInterface();
-        attributes = new Attributes(ui.getHeight(),ui.getWeight(),ui.getGender());
-        ui.makeGoals(ui.getWeight());
-        ui.persistMenuDisplay();
     }
 
     public void addFood(Food f) {

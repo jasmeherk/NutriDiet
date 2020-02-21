@@ -34,6 +34,8 @@ public class UserInterface {
         attr = new Attributes(height,weight,gender);
         cc = new CalorieCounter();
         recommend = new Recommender();
+        makeGoals(getWeight());
+        persistMenuDisplay();
     }
 
     public double getWeight() {
