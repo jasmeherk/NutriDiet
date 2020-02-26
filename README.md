@@ -24,5 +24,7 @@ where they will stay stored really helps you track your progress. That was my in
 - As a user, I want to be able to view the list of what I consumed (food and drinks)
 - As a user, I want to get prioritised recommendations on what I should do
 - As a user, I want to be able to get my BMI. 
+- As a user, I want to be able to save my data into a JSON file
+- As a user, I want to be able to read the data that has been saved in a JSON file and should be able to choose the file.
 
 
