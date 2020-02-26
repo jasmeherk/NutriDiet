@@ -24,7 +24,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="json-simple-1.1" level="project" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -34,5 +33,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="gson-2.8.6" level="project" />
   </component>
 </module>
