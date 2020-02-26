@@ -9,11 +9,12 @@ class CalorieTest {
     Food foodItem = new Food("Apple", 100);;
     Fluids fluidItem1 = new Fluids("Water", 500);
     Fluids fluidItem2 = new Fluids("juice", 500);
-    Attributes a = new Attributes(1.8,65.0);
     Activities act = new Activities(4.0, 6, 6);
     CalorieCounter c = new CalorieCounter();
     Recommender rec = new Recommender();
+    Attributes a = new Attributes(1.8,65.0);
     Goals goal = new Goals(63.0, 7, 5);
+    StoredData s = new StoredData(c,goal,a);
 
     @Test
     void testBMI() {
@@ -145,5 +146,37 @@ class CalorieTest {
     @Test
     void testGetCalories() {
         assertEquals(100, foodItem.getCalories());
+    }
+    @Test
+    void testGetAttrData() {
+        assertEquals(a,s.getAttrData());
+    }
+    @Test
+    void testGetGoalData() {
+        assertEquals(goal,s.getGoalData());
+    }
+    @Test
+    void testGetCalData() {
+        assertEquals(c, s.getCalData());
+    }
+    @Test
+    void testGetSleep() {
+        assertEquals(6, act.getSleep());
+    }
+    @Test
+    void testGetGymRigour() {
+        assertEquals(6,act.getGymmingRigour());
+    }
+    @Test
+    void testGetWalk() {
+        assertEquals(4.0, act.getWalk());
+    }
+    @Test
+    void testGetHeight() {
+        assertEquals(1.8,a.getHeight());
+    }
+    @Test
+    void testGetWeight() {
+        assertEquals(65.0, a.getWeight());
     }
 }
