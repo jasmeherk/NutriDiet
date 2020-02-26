@@ -4,12 +4,11 @@ package model;
 public class Attributes {
     double height; // in metres
     double weight; // in kgs
-    char gender;
+    // MODIFIES : this
 
-    public Attributes(double height, double weight, char gender) {
+    public Attributes(double height, double weight) {
         this.height = height;
         this.weight = weight;
-        this.gender = gender;
     }
 // EFFECTS : calculates BMI of USer
 

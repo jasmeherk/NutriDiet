@@ -9,7 +9,7 @@ class CalorieTest {
     Food foodItem = new Food("Apple", 100);;
     Fluids fluidItem1 = new Fluids("Water", 500);
     Fluids fluidItem2 = new Fluids("juice", 500);
-    Attributes a = new Attributes(1.8,65.0, 'M');
+    Attributes a = new Attributes(1.8,65.0);
     Activities act = new Activities(4.0, 6, 6);
     CalorieCounter c = new CalorieCounter();
     Recommender rec = new Recommender();
@@ -20,13 +20,7 @@ class CalorieTest {
         double bmiVal = 65.0/(1.8 * 1.8);
        assertEquals(bmiVal, a.calculateBMI());
     }
-    @Test
-    void testGetMessage() {
-        rec.getMessage(0.5, 0.49, 0.55, 0.11);
-        rec.getMessage(0.49, 0.5, 0.96, 0.98);
-        rec.getMessage(0.8, 0.7, 0.5, 0.41);
-        rec.getMessage(0.35, 0.15, 0.11, 0.5);
-    }
+
     @Test
     void testWeightSigmoid() {
        double x = rec.weightSigmoid(69.0,65);
@@ -78,6 +72,13 @@ class CalorieTest {
         c.addFluid(fluidItem1);
         c.addFluid(fluidItem2);
         assertEquals(2, c.fluids.size());
+    }
+    @Test
+    void testGetMessage() {
+        rec.getMessage(0.5, 0.49, 0.55, 0.11);
+        rec.getMessage(0.49, 0.5, 0.96, 0.98);
+        rec.getMessage(0.8, 0.7, 0.5, 0.41);
+        rec.getMessage(0.35, 0.15, 0.11, 0.5);
     }
     @Test
     void testCalculateCalories() {

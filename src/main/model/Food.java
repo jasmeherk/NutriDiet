@@ -3,6 +3,7 @@ package model;
 public class Food {
     String foodName;
     int calories;
+// MODIFIES : this
 
     public Food(String foodName, int calories) {
         this.foodName = foodName;

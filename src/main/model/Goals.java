@@ -6,6 +6,7 @@ public class Goals {
     double desiredWeight;
     int desiredSleep;
     int desiredGymRigour;
+// MODIFIES : this
 
     public Goals(double desiredWeight, int desiredSleep, int desiredGymRigour) {
         this.desiredWeight = desiredWeight;

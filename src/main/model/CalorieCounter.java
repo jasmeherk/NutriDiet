@@ -15,17 +15,13 @@ public class CalorieCounter {
     ArrayList<Food> foods;
     ArrayList<Fluids> fluids;
     ArrayList<Activities> activities;
-    UserInterface ui;
 
     public CalorieCounter() {
-        runUI();
-    }
-
-    public void runUI() {
         foods = new ArrayList<>();
         fluids = new ArrayList<>();
         activities = new ArrayList<>();
     }
+
 
     public void addFood(Food f) {
         foods.add(f);
@@ -42,8 +38,10 @@ public class CalorieCounter {
             totalCalories += f.calories;
         }
         if (!(activities.isEmpty())) {
-            totalCalories = activities.get(0).gymming(totalCalories);
-            totalCalories = activities.get(0).walking(totalCalories);
+            for (Activities a : activities) {
+                totalCalories = a.gymming(totalCalories);
+                totalCalories = a.walking(totalCalories);
+            }
         }
         return totalCalories;
     }

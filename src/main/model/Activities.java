@@ -7,6 +7,7 @@ public class Activities {
     public int gymmingRigour; // stores hours the user has been gymming
     static final int caloriesLostGymming = 70; // Arbitrary Number
     static final int caloriesBurntPerKmOfWalk = 40;
+// MODIFIES : this
 
     public Activities(double walk, int sleep, int gymmingRigour) {
         this.walk = walk;

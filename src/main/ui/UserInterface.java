@@ -1,29 +1,29 @@
 package ui;
 
 import model.*;
+import persistence.Writer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import persistence.Reader;
 
 public class UserInterface {
     double height;
     double weight;
-    char gender;
     Attributes attr;
     CalorieCounter cc;
     Recommender recommend;
     Goals goals;
     Scanner input = new Scanner(System.in);
 
-    public UserInterface() {
+    public UserInterface() throws IOException {
         System.out.println("First write your basic details");
         System.out.println("------------------------------");
         System.out.println("Enter height (metres)");
         height = input.nextDouble();
         System.out.println("Enter weight (kgs)");
         weight = input.nextDouble();
-        System.out.println("Enter Gender (M/F/O)");
-        gender = input.next().charAt(0);
         System.out.println("Now enter your goals."
                 +  " Think before entering as you won't be able to change them once entered."
                 +  " We shall make sure you are committed");
@@ -31,10 +31,10 @@ public class UserInterface {
                 +   "----------------------"
                 +  "-------------------------------"
                 +  "-------------------------------------------");
-        attr = new Attributes(height,weight,gender);
-        cc = new CalorieCounter();
+        attr = new Attributes(height,weight);
         recommend = new Recommender();
         makeGoals(getWeight());
+        cc = new CalorieCounter();
         persistMenuDisplay();
     }
 
@@ -42,16 +42,12 @@ public class UserInterface {
         return weight;
     }
 
-    public char getGender() {
-        return gender;
-    }
-
     public double getHeight() {
         return height;
     }
     // EFFECTS : Displays menu until quit
 
-    public void persistMenuDisplay() {
+    public void persistMenuDisplay() throws IOException {
         boolean keepGoing = true;
         String command;
 
@@ -75,31 +71,29 @@ public class UserInterface {
     // MODIFIES: this
     // EFFECTS: processes user command according to property entered
 
-    private void processCommand(String command) {
-        switch (command) {
-            case "c":
-                processCalories();
-                break;
-            case "f":
-                processFluids();
-                break;
-            case "a":
-                processActivity();
-                break;
-            case "g":
-                checkValidityReccomendation();
-                break;
-            case "b":
-                System.out.println(attr.calculateBMI());
-                break;
-            case "s":
-                display();
-                break;
-            default:
-                System.out.println("Selection invalid...");
-                break;
+    private void processCommand(String command) throws IOException {
+        if (command.equals("c")) {
+            processCalories();
+        } else if (command.equals("f")) {
+            processFluids();
+        } else if (command.equals("a")) {
+            processActivity();
+        } else if (command.equals("g")) {
+            checkValidityReccomendation();
+        } else if (command.equals("b")) {
+            System.out.println(attr.calculateBMI());
+        } else if (command.equals("d")) {
+            StoredData s = new StoredData(cc, goals, attr);
+            Writer.write(s);
+        } else if (command.equals("s")) {
+            display();
+        } else if (command.equals("r")) {
+            Reader.read();
+        } else {
+            System.out.println("Selection invalid...");
         }
     }
+
     // EFFECTS: displays menu of options to user
 
     private void displayMenu() {
@@ -110,6 +104,8 @@ public class UserInterface {
         System.out.println("\tb -> Calculate BMI");
         System.out.println("\ts -> Show Food and Fluids");
         System.out.println("\tg -> Get Recommendation");
+        System.out.println("\td -> Download Data to File");
+        System.out.println("\tr -> Read file");
         System.out.println("\tq -> quit");
     }
     //EFFECTS: adds a fluid to list
@@ -199,7 +195,7 @@ public class UserInterface {
     }
     // EFFECTS : Checks if user can ask for recommendation
 
-    void checkValidityReccomendation() {
+    void checkValidityReccomendation() throws IOException {
         if (cc.getActivities().isEmpty()) {
             System.out.println("Log in Activities first");
             persistMenuDisplay();

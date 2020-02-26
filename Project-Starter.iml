@@ -24,5 +24,16 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="json-simple-1.1" level="project" />
+    <orderEntry type="library" name="com.google.code.gson:gson:2.8.6" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/commons-io-2.6/commons-io-2.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
