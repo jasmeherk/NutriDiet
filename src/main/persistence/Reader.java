@@ -1,6 +1,6 @@
 package persistence;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import model.*;
 
 import javax.swing.*;
