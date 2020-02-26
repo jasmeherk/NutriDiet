@@ -11,4 +11,15 @@ public class StoredData {
         this.attrData = attrData;
     }
 
+    public Attributes getAttrData() {
+        return attrData;
+    }
+
+    public Goals getGoalData() {
+        return goalData;
+    }
+
+    public CalorieCounter getCalData() {
+        return calData;
+    }
 }

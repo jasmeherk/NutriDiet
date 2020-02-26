@@ -215,9 +215,16 @@ public class UserInterface {
     void getSigmoidMessage() {
         double hydValue = recommend.hydrationSigmoid(goals.getHydrationGoal(), cc.calculateHydration());
         double weightVal = recommend.weightSigmoid(goals.getDesiredWeight(), cc.calculateCalories());
-        double sleepVal = recommend.sleepSigmoid(goals.getDesiredSleep(), cc.getActivities().get(0).sleep);
-        int gymRigour = cc.getActivities().get(0).gymmingRigour;
-        double gymValue = recommend.gymRigourSigmoid(goals.getDesiredGymRigour(),gymRigour);
+        int sleeping = 0;
+        int gymRig = 0;
+        for (Activities a: cc.getActivities()) {
+            sleeping += a.getSleep();
+            gymRig += a.getGymmingRigour();
+        }
+        sleeping = sleeping / cc.getActivities().size();
+        gymRig = gymRig / cc.getActivities().size();
+        double sleepVal = recommend.sleepSigmoid(goals.getDesiredSleep(), sleeping);
+        double gymValue = recommend.gymRigourSigmoid(goals.getDesiredGymRigour(),gymRig);
         recommend.getMessage(weightVal, hydValue, sleepVal, gymValue);
     }
 }

@@ -15,4 +15,12 @@ public class Attributes {
     public double calculateBMI() {
         return weight / (height * height);
     }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
 }
