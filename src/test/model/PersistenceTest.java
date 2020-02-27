@@ -8,11 +8,13 @@ import persistence.*;
 import java.io.IOException;
 
 public class PersistenceTest {
+    Reader reader;
+    Writer writer;
     CalorieCounter c = new CalorieCounter();
     Goals goal = new Goals(63.0, 7, 5);
     Attributes a = new Attributes(1.8,65.0);
     StoredData s = new StoredData(c,goal,a);
-
+    Reader f = new Reader();
     @Test
     void testRead() throws IOException {
        StoredData s = Reader.read();
@@ -30,5 +32,13 @@ public class PersistenceTest {
             success = false;
         }
         assertTrue(success);
+    }
+    @Test
+    void ReaderConstructor() {
+        reader = new Reader();
+    }
+    @Test
+    void WriterConstructor() {
+        writer = new Writer();
     }
 }
