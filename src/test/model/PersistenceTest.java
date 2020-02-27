@@ -1,5 +1,7 @@
 package model;
 
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 import persistence.*;
 
@@ -12,8 +14,21 @@ public class PersistenceTest {
     StoredData s = new StoredData(c,goal,a);
 
     @Test
-    void testReadWrite() throws IOException {
-        Writer.write(s);
-        Reader.read();
+    void testRead() throws IOException {
+       StoredData s = Reader.read();
+       Goals g = s.getGoalData();
+       assertEquals(5 ,g.getDesiredGymRigour());
+       assertEquals(7, g.getDesiredSleep());
+       assertEquals(63.0, g.getDesiredWeight());
+    }
+    @Test
+    void testWrite() {
+        boolean success = true;
+        try {
+            Writer.write(s);
+        } catch (IOException e) {
+            success = false;
+        }
+        assertTrue(success);
     }
 }

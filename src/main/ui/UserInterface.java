@@ -88,12 +88,23 @@ public class UserInterface {
         } else if (command.equals("s")) {
             display();
         } else if (command.equals("r")) {
-            Reader.read();
+            handleRead();
         } else {
             System.out.println("Selection invalid...");
         }
     }
 
+    void handleRead() throws IOException {
+        StoredData models = Reader.read();
+        printAttributeData(models);
+        printGoalsData(models);
+        ArrayList<Food> foods = models.getCalData().getFoods();
+        ArrayList<Fluids> fluids = models.getCalData().getFluids();
+        ArrayList<Activities> activities = models.getCalData().getActivities();
+        printFoods(foods);
+        printFluids(fluids);
+        printActivities(activities);
+    }
     // EFFECTS: displays menu of options to user
 
     private void displayMenu() {
@@ -145,7 +156,7 @@ public class UserInterface {
         cc.addActivity(activities1);
     }
     //REQUIRES : weight >= 0
-    // EFFECTS : makes goals for each attribubte
+    // EFFECTS : makes goals for each attribute
 
     public void makeGoals(double weight) {
         for (; ; ) {
@@ -226,5 +237,39 @@ public class UserInterface {
         double sleepVal = recommend.sleepSigmoid(goals.getDesiredSleep(), sleeping);
         double gymValue = recommend.gymRigourSigmoid(goals.getDesiredGymRigour(),gymRig);
         recommend.getMessage(weightVal, hydValue, sleepVal, gymValue);
+    }
+
+    static void printFoods(ArrayList<Food> foods) {
+        for (Food f : foods) {
+            System.out.print("Calories : " + f.getCalories() + "     ");
+            System.out.println("Food : " + f.getFoodName());
+        }
+    }
+
+    static void printFluids(ArrayList<Fluids> fluids) {
+        for (Fluids f : fluids) {
+            System.out.print("Quantity (ml) : " + f.getQuantityinML() + "     ");
+            System.out.println("Fluid : " + f.getFluidName());
+        }
+    }
+
+    static void printActivities(ArrayList<Activities> activities) {
+        for (Activities a : activities) {
+            System.out.print("Walking : " + a.getWalk() + "     ");
+            System.out.print("Gymming : " + a.getGymmingRigour() + "     ");
+            System.out.println("Sleeping : " + a.getSleep());
+        }
+    }
+
+    static void printAttributeData(StoredData models) {
+        System.out.println("Height: " + models.getAttrData().getHeight());
+        System.out.println("Weight : " + models.getAttrData().getWeight());
+    }
+
+    static void printGoalsData(StoredData models) {
+        System.out.println("Gym Rigour : " + models.getGoalData().getDesiredGymRigour());
+        System.out.println("Hydration Goal : " + models.getGoalData().getHydrationGoal());
+        System.out.println("Sleep Goal : " + models.getGoalData().getDesiredSleep());
+        System.out.println("Weight goal : " + models.getGoalData().getDesiredWeight());
     }
 }
