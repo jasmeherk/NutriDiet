@@ -36,7 +36,7 @@ public class Recommender {
     //REQUIRES for all functions of form variableMessage : sigmoidValue of Variable
     // EFFECTS for all functions of form variableMessage : message for appropriate variable
 
-    private String weightMessage(double sigmoidValue) {
+    public String weightMessage(double sigmoidValue) {
         if (sigmoidValue == 0.5) {
             return "You have achieved your goal! Hurray";
         }
@@ -51,7 +51,7 @@ public class Recommender {
                     + " But don't worry, you still got this. Eat as much as you can alongside working out.";
     }
 
-    private String hydrationMessage(double sigmoidValue) {
+    public String hydrationMessage(double sigmoidValue) {
         if (sigmoidValue == 0.5) {
             return "Yay you are at the perfect hydration level for the day";
         }
@@ -64,7 +64,7 @@ public class Recommender {
         return "You're doing great. Just make sure the majority of what you drink is water ? ";
     }
 
-    private String sleepMessage(double sigmoidValue) {
+    public String sleepMessage(double sigmoidValue) {
         if (sigmoidValue == 0.5) {
             return "Yay you slept the perfect amount";
         }
@@ -77,7 +77,7 @@ public class Recommender {
         return "Wake up earlier! Sleeping longer than planned can make a person lazy";
     }
 
-    private String gymRigourMessage(double sigmoidValue) {
+    public String gymRigourMessage(double sigmoidValue) {
         if (sigmoidValue == 0.5) {
             return "Wow you were at the perfect gym rigour";
         }
@@ -92,24 +92,15 @@ public class Recommender {
 
     //REQUIRES : Manipulated Sigmoid values of all variables
     //EFFECTS : Gives feedback on habits
-    public void getMessage(double weightValue, double hydrationValue, double sleepValue, double gymRigourValue) {
+    public ArrayList<Double>
+            getMessage(double weightValue, double hydrationValue, double sleepValue, double gymRigourValue) {
         ArrayList<Double> sigmoidValues = new ArrayList<>();
         sigmoidValues.add(weightValue);
         sigmoidValues.add(hydrationValue);
         sigmoidValues.add(sleepValue);
         sigmoidValues.add(gymRigourValue);
         sigmoidValues.sort(Collections.reverseOrder());
-        for (Double d : sigmoidValues) {
-            if (d == weightValue) {
-                System.out.println(weightMessage(weightValue));
-            } else if (d == hydrationValue) {
-                System.out.println(hydrationMessage(hydrationValue));
-            } else if (d == sleepValue) {
-                System.out.println(sleepMessage(sleepValue));
-            } else {
-                System.out.println(gymRigourMessage(gymRigourValue));
-            }
-        }
+        return sigmoidValues;
     }
 
 }

@@ -16,10 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Activities;
-import model.CalorieCounter;
-import model.Fluids;
-import model.Food;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +26,9 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     CalorieCounter calorieCounter;
+    Recommender recommend;
+    Goals goals = new Goals(0.0,0,0);
+
 
     //Labels
     public Label initialWeight;
@@ -47,18 +47,21 @@ public class MainController implements Initializable {
 
     void setGymText(String text) {
         goalGym.setText(text);
+        goals.setDesiredGymRigour(Integer.parseInt(text));
     }
 
     public Label goalWeight;
 
     void setWeightText(String text) {
         goalWeight.setText(text);
+        goals.setDesiredWeight(Double.parseDouble(text));
     }
 
     public Label goalSleep;
 
     void setSleepText(String text) {
         goalSleep.setText(text);
+        goals.setDesiredSleep(Integer.parseInt(text));
     }
 
 
@@ -79,6 +82,23 @@ public class MainController implements Initializable {
     @FXML public Button viewActivityButton = new Button();
     @FXML public Button bmiButton = new Button();
 
+    @FXML void displayBMI() {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setMinWidth(350);
+        Label bmiLabel = new Label();
+        bmiLabel.setText("Your BMI is : ");
+        Label bmiVal = new Label();
+        double bmi = (double) Integer.parseInt(initialWeight.getText())
+                / (Double.parseDouble(initialHeight.getText()) * Double.parseDouble(initialHeight.getText()));
+        bmiVal.setText(Double.toString(bmi));
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(bmiLabel,bmiVal);
+        layout.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
+    }
 
     @FXML void displayFoods() {
         ArrayList<Food> foods = calorieCounter.getFoods();
@@ -163,48 +183,84 @@ public class MainController implements Initializable {
     }
 
     @FXML void activityButton() {
-        addFoodButton.setOnAction(event -> {
-            addActivity();
+        addActivityButton.setOnAction(event -> {
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setMinWidth(350);
+            Label gymLabel = new Label();
+            gymLabel.setText("Gymming Rigour (1-10)");
+            TextField gymVal = new TextField();
+            Label walkLabel = new Label();
+            walkLabel.setText("Walking (km)");
+            TextField walkVal = new TextField();
+            Label sleepLabel = new Label();
+            sleepLabel.setText("Sleep (hours)");
+            TextField sleepVal = new TextField();
+            Button doneButton = new Button("Add");
+            doneButton.setOnAction(e -> {
+                Activities a = new Activities(Double.parseDouble(walkVal.getText()),
+                        Integer.parseInt(sleepVal.getText()),
+                        Integer.parseInt(gymVal.getText()));
+                calorieCounter.addActivity(a);
+                window.close();
+            });
+            VBox layout = new VBox(10);
+            layout.getChildren().addAll(gymLabel,gymVal,walkLabel,walkVal,sleepLabel,sleepVal,doneButton);
+            layout.setAlignment(Pos.CENTER);
+            Scene scene = new Scene(layout);
+            window.setScene(scene);
+            window.showAndWait();
         });
     }
 
-    void addActivity() {
-        Stage window = new Stage();
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setMinWidth(350);
-        Label gymLabel = new Label();
-        gymLabel.setText("Gymming Rigour (1-10)");
-        TextField gymVal = new TextField();
-        Label walkLabel = new Label();
-        walkLabel.setText("Walking (km)");
-        TextField walkVal = new TextField();
-        Label sleepLabel = new Label();
-        sleepLabel.setText("Sleep (hours)");
-        TextField sleepVal = new TextField();
-        Button doneButton = new Button("Add");
-        doneButton.setOnAction(e -> {
-            addingActivity(walkVal.getText(),sleepVal.getText(),gymVal.getText());
-            window.close();
+    @FXML
+    void setReccomendButton() {
+        reccomendButton.setOnAction(event -> {
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setMinWidth(350);
+            String text = "";
+            TextArea msg = new TextArea();
+            double hydValue = recommend.hydrationSigmoid(goals.getHydrationGoal(), calorieCounter.calculateHydration());
+            double weightVal = recommend.weightSigmoid(goals.getDesiredWeight(), calorieCounter.calculateCalories());
+            int sleeping = 0;
+            int gymRig = 0;
+            for (Activities a: calorieCounter.getActivities()) {
+                sleeping += a.getSleep();
+                gymRig += a.getGymmingRigour();
+            }
+            sleeping = sleeping / calorieCounter.getActivities().size();
+            gymRig = gymRig / calorieCounter.getActivities().size();
+            double sleepVal = recommend.sleepSigmoid(goals.getDesiredSleep(), sleeping);
+            double gymValue = recommend.gymRigourSigmoid(goals.getDesiredGymRigour(),gymRig);
+            ArrayList<Double> sigmoidValues = recommend.getMessage(weightVal, hydValue, sleepVal, gymValue);
+            for (Double d : sigmoidValues) {
+                if (d == weightVal) {
+                    text = text + recommend.weightMessage(weightVal) + "\n";
+                } else if (d == hydValue) {
+                    text = text + recommend.hydrationMessage(hydValue) + "\n";
+                } else if (d == sleepVal) {
+                    System.out.println(recommend.sleepMessage(sleepVal));
+                    text = text + recommend.sleepMessage(sleepVal) + "\n";
+                } else {
+                    text = text + recommend.gymRigourMessage(gymValue) + "\n";
+                }
+            }
+            msg.setText(text);
+            VBox layout = new VBox(10);
+            layout.getChildren().addAll(msg);
+            layout.setAlignment(Pos.CENTER);
+            Scene scene = new Scene(layout);
+            window.setScene(scene);
+            window.showAndWait();
         });
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(gymLabel,gymVal,walkLabel,walkVal,sleepLabel,sleepVal,doneButton);
-        layout.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(layout);
-        window.setScene(scene);
-        window.showAndWait();
-
-    }
-
-    void addingActivity(String walkVal, String sleepVal, String gymVal) {
-        Activities a = new Activities(Double.parseDouble(walkVal),
-                Integer.parseInt(sleepVal),
-                Integer.parseInt(gymVal));
-        calorieCounter.addActivity(a);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         calorieCounter = new CalorieCounter();
+        recommend = new Recommender();
+        double weight = Double.parseDouble(goalWeight.getText());
     }
 }
 

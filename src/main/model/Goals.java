@@ -29,5 +29,17 @@ public class Goals {
     public static int getHydrationGoal() {
         return hydrationGoal;
     }
+
+    public void setDesiredGymRigour(int desiredGymRigour) {
+        this.desiredGymRigour = desiredGymRigour;
+    }
+
+    public void setDesiredWeight(double desiredWeight) {
+        this.desiredWeight = desiredWeight;
+    }
+
+    public void setDesiredSleep(int desiredSleep) {
+        this.desiredSleep = desiredSleep;
+    }
 }
 

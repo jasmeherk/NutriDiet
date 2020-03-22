@@ -59,7 +59,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="reccomendButton" mnemonicParsing="false" prefHeight="111.0" prefWidth="120.0" text="Reccomend">
+            <Button fx:id="reccomendButton" mnemonicParsing="false" prefHeight="111.0" prefWidth="120.0" text="Reccomend" onAction="#setReccomendButton">
                <font>
                   <Font size="18.0" />
                </font>
@@ -74,7 +74,7 @@
             <Button fx:id="viewFoodButton" mnemonicParsing="false" prefHeight="82.0" prefWidth="126.0" text="View Foods" onAction="#displayFoods" />
             <Button fx:id="viewFluidButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="130.0" text="View Fluids" onAction="#displayFluids"/>
             <Button fx:id="viewActivityButton" mnemonicParsing="false" prefHeight="81.0" prefWidth="131.0" text="View Activities" onAction="#displayActivity" />
-            <Button fx:id="bmiButton" mnemonicParsing="false" prefHeight="78.0" prefWidth="118.0" text="BMI" />
+            <Button fx:id="bmiButton" mnemonicParsing="false" prefHeight="78.0" prefWidth="118.0" text="BMI" onAction="#displayBMI" />
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">

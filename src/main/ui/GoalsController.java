@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class GoalsController {
 
-    @SuppressWarnings("checkstyle:MethodLength")
+
     public static void addGoals() throws IOException {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
