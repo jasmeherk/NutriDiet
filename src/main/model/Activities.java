@@ -14,6 +14,7 @@ public class Activities {
         this.sleep = sleep;
         this.gymmingRigour = gymmingRigour;
     }
+
     // REQUIRES : calories >= 0
     // EFFECTS : calories after gymming
 
@@ -24,7 +25,7 @@ public class Activities {
     // EFFECTS : calories after walking
 
     public int walking(int calories) {
-        return calories - (int) (walk * (double) caloriesBurntPerKmOfWalk);
+        return calories -  ((int) (walk * (double) caloriesBurntPerKmOfWalk));
     }
 
     public double getWalk() {

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MainController">
+   <children>
+      <HBox spacing="20.0">
+         <children>
+            <Label text="Food:" />
+            <TextArea fx:id="foodList" prefHeight="200.0" prefWidth="200.0" />
+            <Label text="Fluids:" />
+            <TextArea fx:id="fluidList" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </VBox.margin>
+      </HBox>
+      <Label layoutY="-30.0" text="Activities">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets left="290.0" />
+         </padding>
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="activityList" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+         <VBox.margin>
+            <Insets left="70.0" />
+         </VBox.margin>
+      </TextArea>
+      <HBox prefHeight="201.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <Button fx:id="addFoodButton" mnemonicParsing="false" onAction="#foodButton" prefHeight="111.0" prefWidth="106.0" text="Add Food">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="addFluidButton" mnemonicParsing="false" onAction="#fluidButton" prefHeight="111.0" prefWidth="134.0" text="Add Fluid">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="addActivityButton" mnemonicParsing="false" onAction="#activityButton" prefHeight="109.0" prefWidth="126.0" text="Add Activity">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="saveAndQuitButton" mnemonicParsing="false" prefHeight="110.0" prefWidth="108.0" text="Save/Quit">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="reccomendButton" mnemonicParsing="false" prefHeight="111.0" prefWidth="120.0" text="Reccomend">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+         <children>
+            <Button fx:id="viewFoodButton" mnemonicParsing="false" prefHeight="82.0" prefWidth="126.0" text="View Foods" onAction="#displayFoods" />
+            <Button fx:id="viewFluidButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="130.0" text="View Fluids" onAction="#displayFluids"/>
+            <Button fx:id="viewActivityButton" mnemonicParsing="false" prefHeight="81.0" prefWidth="131.0" text="View Activities" onAction="#displayActivity" />
+            <Button fx:id="bmiButton" mnemonicParsing="false" prefHeight="78.0" prefWidth="118.0" text="BMI" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+         <children>
+            <Label text="Desired Gym Rigour : " />
+            <Label fx:id="goalGym" text="ku" />
+            <Label text="Desired Weight : " />
+            <Label fx:id="goalWeight" text="23" />
+            <Label text="Desired Sleep : " />
+            <Label fx:id="goalSleep" text="23es" />
+         </children>
+         <VBox.margin>
+            <Insets left="100.0" right="100.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <children>
+            <Label text="Initial Height:" />
+            <Label fx:id="initialHeight" text="12" />
+            <Label text="Initial Weight:" />
+            <Label fx:id="initialWeight" text="bl" />
+         </children>
+         <VBox.margin>
+            <Insets left="175.0" right="200.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

@@ -35,7 +35,7 @@ public class CalorieCounter {
     public int calculateCalories() {
         int totalCalories = 0;
         for (Food f: foods) {
-            totalCalories += f.calories;
+            totalCalories += f.calories.get();
         }
         if (!(activities.isEmpty())) {
             for (Activities a : activities) {
