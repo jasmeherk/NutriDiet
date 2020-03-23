@@ -44,31 +44,34 @@ public class FirstPageController {
 
     @FXML void loadFileFunction() {
         loadFileButton.setOnAction(event -> {
-            StoredData models = null;
             try {
-                models = Reader.read();
+                loadFunction();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            FXMLLoader loader = new FXMLLoader(GoalsController.class.getResource("newload.fxml"));
-            Parent root = null;
-            try {
-                root = (Parent) loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            MainController mainController = loader.getController();
-            mainController.setGymText(Integer.toString(models.getGoalData().getDesiredGymRigour()));
-            mainController.setWeightText(Double.toString(models.getGoalData().getDesiredWeight()));
-            mainController.setSleepText(Integer.toString(models.getGoalData().getDesiredSleep()));
-            mainController.setInitialWeightText(Double.toString(models.getAttrData().getWeight()));
-            mainController.setInitialHeightText(Double.toString(models.getAttrData().getWeight()));
-            mainController.calorieCounter.setActivities(models.getCalData().getActivities());
-            mainController.calorieCounter.setFoods(models.getCalData().getFoods());
-            mainController.calorieCounter.setFluids(models.getCalData().getFluids());
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
         });
+    }
+
+    void loadFunction() throws IOException {
+        StoredData models = Reader.read();
+        FXMLLoader loader = new FXMLLoader(GoalsController.class.getResource("newload.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MainController mainController = loader.getController();
+        mainController.setGymText(Integer.toString(models.getGoalData().getDesiredGymRigour()));
+        mainController.setWeightText(Double.toString(models.getGoalData().getDesiredWeight()));
+        mainController.setSleepText(Integer.toString(models.getGoalData().getDesiredSleep()));
+        mainController.setInitialWeightText(Double.toString(models.getAttrData().getWeight()));
+        mainController.setInitialHeightText(Double.toString(models.getAttrData().getWeight()));
+        mainController.calorieCounter.setActivities(models.getCalData().getActivities());
+        mainController.calorieCounter.setFoods(models.getCalData().getFoods());
+        mainController.calorieCounter.setFluids(models.getCalData().getFluids());
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }

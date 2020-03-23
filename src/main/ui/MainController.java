@@ -200,12 +200,12 @@ public class MainController  {
             TextField fluidQuantity = new TextField();
             Button doneButton = new Button("Add");
             doneButton.setOnAction(e -> {
-                Fluids fluid = new Fluids(fluidName.getText(), Integer.parseInt(fluidQuantity.getText()));
-                calorieCounter.addFluid(fluid);
+                addFluidBut(fluidName.getText(), fluidQuantity.getText());
                 window.close();
             });
             VBox layout = new VBox(10);
-            layout.getChildren().addAll(fluidNameLabel,fluidName,fluidQuantityLabel,fluidQuantity,waterImage,doneButton);
+            layout.getChildren().addAll(fluidNameLabel,fluidName,
+                    fluidQuantityLabel,fluidQuantity,waterImage,doneButton);
             layout.setAlignment(Pos.CENTER);
             Scene scene = new Scene(layout);
             window.setScene(scene);
@@ -213,35 +213,48 @@ public class MainController  {
         });
     }
 
+    void addFluidBut(String name, String quant) {
+        Fluids fluid = new Fluids(name, Integer.parseInt(quant));
+        calorieCounter.addFluid(fluid);
+    }
+
     @FXML void activityButton() {
         addActivityButton.setOnAction(event -> {
-            Stage window = new Stage();
-            window.initModality(Modality.APPLICATION_MODAL);
-            window.setMinWidth(350);
-            Label gymLabel = new Label();
-            gymLabel.setText("Gymming Rigour (1-10)");
-            TextField gymVal = new TextField();
-            Label walkLabel = new Label();
-            walkLabel.setText("Walking (km)");
-            TextField walkVal = new TextField();
-            Label sleepLabel = new Label();
-            sleepLabel.setText("Sleep (hours)");
-            TextField sleepVal = new TextField();
-            Button doneButton = new Button("Add");
-            doneButton.setOnAction(e -> {
-                Activities a = new Activities(Double.parseDouble(walkVal.getText()),
-                        Integer.parseInt(sleepVal.getText()),
-                        Integer.parseInt(gymVal.getText()));
-                calorieCounter.addActivity(a);
-                window.close();
-            });
-            VBox layout = new VBox(10);
-            layout.getChildren().addAll(gymLabel,gymVal,walkLabel,walkVal,sleepLabel,sleepVal,sleepImage,doneButton);
-            layout.setAlignment(Pos.CENTER);
-            Scene scene = new Scene(layout);
-            window.setScene(scene);
-            window.showAndWait();
+            actButton();
         });
+    }
+
+    void actButton() {
+        Stage window = new Stage();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setMinWidth(350);
+        Label gymLabel = new Label();
+        gymLabel.setText("Gymming Rigour (1-10)");
+        TextField gymVal = new TextField();
+        Label walkLabel = new Label();
+        walkLabel.setText("Walking (km)");
+        TextField walkVal = new TextField();
+        Label sleepLabel = new Label();
+        sleepLabel.setText("Sleep (hours)");
+        TextField sleepVal = new TextField();
+        Button doneButton = new Button("Add");
+        doneButton.setOnAction(e -> {
+            activityAction(walkVal.getText(),sleepVal.getText(),gymVal.getText());
+            window.close();
+        });
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(gymLabel,gymVal,walkLabel,walkVal,sleepLabel,sleepVal,sleepImage,doneButton);
+        layout.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(layout);
+        window.setScene(scene);
+        window.showAndWait();
+    }
+
+    void activityAction(String walkVal, String sleepVal, String gymVal) {
+        Activities a = new Activities(Double.parseDouble(walkVal),
+                Integer.parseInt(sleepVal),
+                Integer.parseInt(gymVal));
+        calorieCounter.addActivity(a);
     }
 
     @FXML
@@ -250,34 +263,8 @@ public class MainController  {
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
             window.setMinWidth(350);
-            String text = "";
             TextArea msg = new TextArea();
-            double hydValue = recommend.hydrationSigmoid(goals.getHydrationGoal(), calorieCounter.calculateHydration());
-            double weightVal = recommend.weightSigmoid(goals.getDesiredWeight(), calorieCounter.calculateCalories());
-            int sleeping = 0;
-            int gymRig = 0;
-            for (Activities a: calorieCounter.getActivities()) {
-                sleeping += a.getSleep();
-                gymRig += a.getGymmingRigour();
-            }
-            sleeping = sleeping / calorieCounter.getActivities().size();
-            gymRig = gymRig / calorieCounter.getActivities().size();
-            double sleepVal = recommend.sleepSigmoid(goals.getDesiredSleep(), sleeping);
-            double gymValue = recommend.gymRigourSigmoid(goals.getDesiredGymRigour(),gymRig);
-            ArrayList<Double> sigmoidValues = recommend.getMessage(weightVal, hydValue, sleepVal, gymValue);
-            for (Double d : sigmoidValues) {
-                if (d == weightVal) {
-                    text = text + recommend.weightMessage(weightVal) + "\n";
-                } else if (d == hydValue) {
-                    text = text + recommend.hydrationMessage(hydValue) + "\n";
-                } else if (d == sleepVal) {
-                    System.out.println(recommend.sleepMessage(sleepVal));
-                    text = text + recommend.sleepMessage(sleepVal) + "\n";
-                } else {
-                    text = text + recommend.gymRigourMessage(gymValue) + "\n";
-                }
-            }
-            msg.setText(text);
+            msg.setText(getText(""));
             VBox layout = new VBox(10);
             layout.getChildren().addAll(msg);
             layout.setAlignment(Pos.CENTER);
@@ -285,6 +272,39 @@ public class MainController  {
             window.setScene(scene);
             window.showAndWait();
         });
+    }
+
+    String getText(String text) {
+        double hydValue = recommend.hydrationSigmoid(goals.getHydrationGoal(), calorieCounter.calculateHydration());
+        double weightVal = recommend.weightSigmoid(goals.getDesiredWeight(), calorieCounter.calculateCalories());
+        int sleeping = 0;
+        int gymRig = 0;
+        for (Activities a: calorieCounter.getActivities()) {
+            sleeping += a.getSleep();
+            gymRig += a.getGymmingRigour();
+        }
+        sleeping = sleeping / calorieCounter.getActivities().size();
+        gymRig = gymRig / calorieCounter.getActivities().size();
+        double sleepVal = recommend.sleepSigmoid(goals.getDesiredSleep(), sleeping);
+        double gymValue = recommend.gymRigourSigmoid(goals.getDesiredGymRigour(),gymRig);
+        ArrayList<Double> sigmoidValues = recommend.getMessage(weightVal, hydValue, sleepVal, gymValue);
+        for (Double d : sigmoidValues) {
+            check(text, d, weightVal, hydValue, sleepVal, gymValue);
+        }
+        return text;
+    }
+
+    void check(String text, Double d, double weightVal, double hydValue, double sleepVal, double gymValue) {
+        if (d == weightVal) {
+            text = text + recommend.weightMessage(weightVal) + "\n";
+        } else if (d == hydValue) {
+            text = text + recommend.hydrationMessage(hydValue) + "\n";
+        } else if (d == sleepVal) {
+            System.out.println(recommend.sleepMessage(sleepVal));
+            text = text + recommend.sleepMessage(sleepVal) + "\n";
+        } else {
+            text = text + recommend.gymRigourMessage(gymValue) + "\n";
+        }
     }
 
     @FXML void setSaveAndQuitButton() throws IOException {
