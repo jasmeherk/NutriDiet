@@ -70,8 +70,20 @@ public class CalorieCounter {
         return activities;
     }
 
+    public void setActivities(ArrayList<Activities> activities) {
+        this.activities = activities;
+    }
+
     public ArrayList<Food> getFoods() {
         return foods;
+    }
+
+    public void setFoods(ArrayList<Food> foods) {
+        this.foods = foods;
+    }
+
+    public void setFluids(ArrayList<Fluids> fluids) {
+        this.fluids = fluids;
     }
 
     public ArrayList<Fluids> getFluids() {

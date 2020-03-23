@@ -12,35 +12,66 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.*;
+import persistence.Reader;
+import persistence.Writer;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
-
+public class MainController  {
+    Stage window = new Stage();
     CalorieCounter calorieCounter;
     Recommender recommend;
-    Goals goals = new Goals(0.0,0,0);
+    Goals goals;
+    Attributes attr;
+    Image imgFood;
+    ImageView foodImage;
+    Image imgWater;
+    ImageView waterImage;
+    Image imgSleep;
+    ImageView sleepImage;
 
+    public MainController() {
+        calorieCounter = new CalorieCounter();
+        recommend = new Recommender();
+        goals = new Goals(0.0,0,0);
+        attr = new Attributes(0.0,0.0);
+        imgFood = new Image("/ui/food.jpg");
+        foodImage = new ImageView(imgFood);
+        foodImage.setFitHeight(75);
+        foodImage.setFitWidth(75);
+        imgWater = new Image("/ui/water_droplets_ripple_hd_picture_3.jpg");
+        waterImage = new ImageView(imgWater);
+        waterImage.setFitHeight(75);
+        waterImage.setFitWidth(75);
+        imgSleep = new Image("/ui/sleep.jpeg");
+        sleepImage = new ImageView(imgSleep);
+        sleepImage.setFitHeight(75);
+        sleepImage.setFitWidth(75);
+    }
 
     //Labels
     public Label initialWeight;
 
     void setInitialWeightText(String text) {
         initialWeight.setText(text);
+        attr.setWeight(Double.parseDouble(text));
     }
 
     public Label initialHeight;
 
     void setInitialHeightText(String text) {
         initialHeight.setText(text);
+        attr.setHeight(Double.parseDouble(text));
     }
 
     public Label goalGym;
@@ -148,7 +179,7 @@ public class MainController implements Initializable {
                 window.close();
             });
             VBox layout = new VBox(10);
-            layout.getChildren().addAll(foodNameLabel,foodName,foodCalLabel,foodCal,doneButton);
+            layout.getChildren().addAll(foodNameLabel,foodName,foodCalLabel,foodCal,foodImage,doneButton);
             layout.setAlignment(Pos.CENTER);
             Scene scene = new Scene(layout);
             window.setScene(scene);
@@ -174,7 +205,7 @@ public class MainController implements Initializable {
                 window.close();
             });
             VBox layout = new VBox(10);
-            layout.getChildren().addAll(fluidNameLabel,fluidName,fluidQuantityLabel,fluidQuantity,doneButton);
+            layout.getChildren().addAll(fluidNameLabel,fluidName,fluidQuantityLabel,fluidQuantity,waterImage,doneButton);
             layout.setAlignment(Pos.CENTER);
             Scene scene = new Scene(layout);
             window.setScene(scene);
@@ -205,7 +236,7 @@ public class MainController implements Initializable {
                 window.close();
             });
             VBox layout = new VBox(10);
-            layout.getChildren().addAll(gymLabel,gymVal,walkLabel,walkVal,sleepLabel,sleepVal,doneButton);
+            layout.getChildren().addAll(gymLabel,gymVal,walkLabel,walkVal,sleepLabel,sleepVal,sleepImage,doneButton);
             layout.setAlignment(Pos.CENTER);
             Scene scene = new Scene(layout);
             window.setScene(scene);
@@ -256,11 +287,9 @@ public class MainController implements Initializable {
         });
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        calorieCounter = new CalorieCounter();
-        recommend = new Recommender();
-        double weight = Double.parseDouble(goalWeight.getText());
+    @FXML void setSaveAndQuitButton() throws IOException {
+        StoredData str = new StoredData(calorieCounter, goals, attr);
+        Writer.write(str);
     }
 }
 

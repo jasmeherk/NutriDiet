@@ -12,11 +12,10 @@ public class Writer {
     // MODIFIES : file
     // EFFECTS : Stores data in file
     public static void write(StoredData s) throws IOException {
-        FileWriter writer = new FileWriter("./data/datasaver.json");
+        FileWriter writer = new FileWriter("/data/datasaver.json");
         Gson gson = new Gson();
         gson.toJson(s, writer);
         writer.close();
-        System.out.println("Your data has been logged and saved to file.");
     }
 
 }

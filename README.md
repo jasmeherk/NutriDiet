@@ -27,4 +27,11 @@ where they will stay stored really helps you track your progress. That was my in
 - As a user, I want to be able to save my data into a JSON file
 - As a user, I want to be able to read the data that has been saved in a JSON file and should be able to choose the file.
 
-
+##Instructions to grader 
+- Buttons require double click
+- Do abide by the data types that must be entered otherwise an exception will occur and the program will crash
+- Each button is named and its function is pretty self explanatory based on the button name such as view button views, add button adds etc
+- The images (visual component) can be found when you click on any one of the add buttons (foof,fluid,activity), I found these images on my macBook and didn't have much time to cite them and hence, will do so for the next phase 
+. As I didn't know where I initially got them from, it will take some researching.
+- For my previous phase, my reader and writer worked perfectly fine. However, after researching for quite some time, there is some issue with my javafx button events which interferes with the gson that I am using to write. Read still works.
+ 

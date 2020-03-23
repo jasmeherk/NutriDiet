@@ -54,7 +54,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="saveAndQuitButton" mnemonicParsing="false" prefHeight="110.0" prefWidth="108.0" text="Save/Quit">
+            <Button fx:id="saveAndQuitButton" mnemonicParsing="false" prefHeight="110.0" prefWidth="108.0" text="Save/Quit" onAction="#setSaveAndQuitButton">
                <font>
                   <Font size="18.0" />
                </font>
