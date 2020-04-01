@@ -446,6 +446,22 @@ class CalorieTest {
             fail("Shouldn't have reached here");
         }
     }
+    @Test void testSetHeightThrowsExceptionAt0() {
+        try {
+            a.setHeight("0.0");
+            fail("Shouldn't have reached here");
+        } catch (InvalidInputException e) {
+            System.out.println("Great");
+        }
+    }
+    @Test void testSetWeightThrowsExceptionAt0() {
+        try {
+            a.setWeight("0.0");
+            fail("Shouldn't have reached here");
+        } catch (InvalidInputException e) {
+            System.out.println("Great");
+        }
+    }
     // Sigmoid Messages
     //weightSigmoid
     @Test void testWeightMessage() {
