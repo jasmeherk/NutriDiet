@@ -50,7 +50,7 @@ public class Goals {
         try {
             double weight = Double.parseDouble(desiredWeight);
             this.desiredWeight = weight;
-        } catch (InvalidInputException e) {
+        } catch (NumberFormatException e) {
             throw new InvalidInputException();
         }
     }

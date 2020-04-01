@@ -22,11 +22,7 @@ public class Food {
     }
 
     public void setFoodName(String foodName) {
-        try {
             this.foodName = foodName;
-        } catch (InvalidInputException e) {
-            throw new InvalidInputException();
-        }
     }
 
     public void setCalories(String calories) {
