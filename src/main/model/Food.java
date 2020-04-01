@@ -22,7 +22,7 @@ public class Food {
     }
 
     public void setFoodName(String foodName) {
-            this.foodName = foodName;
+        this.foodName = foodName;
     }
 
     public void setCalories(String calories) {
