@@ -1,34 +1,41 @@
 package model;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.TableColumn;
-import sun.java2d.pipe.SpanShapeRenderer;
 
-public class Food extends TableColumn<Food, Object> {
-    SimpleStringProperty foodName;
-    SimpleIntegerProperty calories;
+import exceptions.InvalidInputException;
+
+public class Food {
+    String foodName;
+    int calories;
 // EFFECTS : instantiate with inputs for fields
 
-    public Food(String foodName, int calories) {
-        this.foodName = new SimpleStringProperty(foodName);
-        this.calories = new SimpleIntegerProperty(calories);
+    public Food(String foodName, String calories) throws InvalidInputException {
+        setFoodName(foodName);
+        setCalories(calories);
     }
 
     public int getCalories() {
-        return calories.get();
+        return calories;
     }
 
     public String getFoodName() {
-        return foodName.get();
+        return foodName;
     }
 
     public void setFoodName(String foodName) {
-        this.foodName.set(foodName);
+        try {
+            this.foodName = foodName;
+        } catch (InvalidInputException e) {
+            throw new InvalidInputException();
+        }
     }
 
-    public void setCalories(int calories) {
-        this.calories.set(calories);
+    public void setCalories(String calories) {
+        try {
+            int cal = Integer.parseInt(calories);
+            this.calories = cal;
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException();
+        }
     }
 }
 

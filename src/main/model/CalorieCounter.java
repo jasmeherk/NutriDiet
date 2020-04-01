@@ -7,8 +7,6 @@ This is the main calorie counter class where UI runs and a lot of calorie getter
 
 package model;
 
-import ui.UserInterface;
-
 import java.util.ArrayList;
 
 public class CalorieCounter {
@@ -35,7 +33,7 @@ public class CalorieCounter {
     public int calculateCalories() {
         int totalCalories = 0;
         for (Food f: foods) {
-            totalCalories += f.calories.get();
+            totalCalories += f.getCalories();
         }
         if (!(activities.isEmpty())) {
             for (Activities a : activities) {

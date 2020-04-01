@@ -15,8 +15,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.*;
-
 import javafx.scene.control.*;
+import javafx.application.Application;
+
+
 import model.Food;
 
 
@@ -24,9 +26,10 @@ import java.io.IOException;
 
 public class Main extends Application {
 
+
     public static void main(String[] args) throws IOException {
         launch(args);
-     //   new UserInterface();
+        //new UserInterface();
     }
 
     @Override

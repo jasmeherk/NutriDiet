@@ -1,13 +1,15 @@
 package model;
 // Class for fluid type
 
-public class Fluids {
-    public String fluidName;
-    public int quantityinML;
+import exceptions.InvalidInputException;
 
-    public Fluids(String fluidName, int quantityinML) {
-        this.fluidName = fluidName;
-        this.quantityinML = quantityinML;
+public class Fluids {
+    String fluidName;
+    int quantityinML;
+
+    public Fluids(String fluidName, String quantityinML) {
+        setFluidName(fluidName);
+        setQuantityinML(quantityinML);
     }
 
     public int getQuantityinML() {
@@ -16,5 +18,18 @@ public class Fluids {
 
     public String getFluidName() {
         return fluidName;
+    }
+
+    public void setFluidName(String fluidName) {
+        this.fluidName = fluidName;
+    }
+
+    public void setQuantityinML(String quantityinML) {
+        try {
+            int quantity = Integer.parseInt(quantityinML);
+            this.quantityinML = quantity;
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException();
+        }
     }
 }

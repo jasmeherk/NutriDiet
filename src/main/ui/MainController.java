@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.InvalidInputException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -28,7 +29,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController  {
-    Stage window = new Stage();
     CalorieCounter calorieCounter;
     Recommender recommend;
     Goals goals;
@@ -43,8 +43,8 @@ public class MainController  {
     public MainController() {
         calorieCounter = new CalorieCounter();
         recommend = new Recommender();
-        goals = new Goals(0.0,0,0);
-        attr = new Attributes(0.0,0.0);
+        goals = new Goals("0","0","0");
+        attr = new Attributes("1.0","1.0");
         imgFood = new Image("/ui/food.jpg");
         foodImage = new ImageView(imgFood);
         foodImage.setFitHeight(75);
@@ -62,37 +62,37 @@ public class MainController  {
     //Labels
     public Label initialWeight;
 
-    void setInitialWeightText(String text) {
+    void setInitialWeightText(String text) throws InvalidInputException {
         initialWeight.setText(text);
-        attr.setWeight(Double.parseDouble(text));
+        attr.setWeight(text);
     }
 
     public Label initialHeight;
 
-    void setInitialHeightText(String text) {
+    void setInitialHeightText(String text) throws InvalidInputException {
         initialHeight.setText(text);
-        attr.setHeight(Double.parseDouble(text));
+        attr.setHeight(text);
     }
 
     public Label goalGym;
 
-    void setGymText(String text) {
+    void setGymText(String text) throws InvalidInputException {
         goalGym.setText(text);
-        goals.setDesiredGymRigour(Integer.parseInt(text));
+        goals.setDesiredGymRigour(text);
     }
 
     public Label goalWeight;
 
-    void setWeightText(String text) {
+    void setWeightText(String text) throws InvalidInputException {
         goalWeight.setText(text);
-        goals.setDesiredWeight(Double.parseDouble(text));
+        goals.setDesiredWeight(text);
     }
 
     public Label goalSleep;
 
-    void setSleepText(String text) {
+    void setSleepText(String text) throws InvalidInputException {
         goalSleep.setText(text);
-        goals.setDesiredSleep(Integer.parseInt(text));
+        goals.setDesiredSleep(text);
     }
 
 
@@ -120,7 +120,7 @@ public class MainController  {
         Label bmiLabel = new Label();
         bmiLabel.setText("Your BMI is : ");
         Label bmiVal = new Label();
-        double bmi = (double) Integer.parseInt(initialWeight.getText())
+        double bmi = Double.parseDouble(initialWeight.getText())
                 / (Double.parseDouble(initialHeight.getText()) * Double.parseDouble(initialHeight.getText()));
         bmiVal.setText(Double.toString(bmi));
         VBox layout = new VBox(10);
@@ -174,8 +174,7 @@ public class MainController  {
             TextField foodCal = new TextField();
             Button doneButton = new Button("Add");
             doneButton.setOnAction(e -> {
-                Food food = new Food(foodName.getText(), Integer.parseInt(foodCal.getText()));
-                calorieCounter.addFood(food);
+                foodButtonClicked(foodName.getText(),foodCal.getText());
                 window.close();
             });
             VBox layout = new VBox(10);
@@ -185,6 +184,16 @@ public class MainController  {
             window.setScene(scene);
             window.showAndWait();
         });
+    }
+
+    void foodButtonClicked(String foodName, String foodCal) {
+        try {
+            Food food = new Food(foodName, foodCal);
+            calorieCounter.addFood(food);
+        } catch (InvalidInputException exception) {
+            PopupController.popupMessage("Please enter an appropriate name and valid number of calories",
+                    "Calories can only be of integer type");
+        }
     }
 
     @FXML void fluidButton() {
@@ -200,7 +209,7 @@ public class MainController  {
             TextField fluidQuantity = new TextField();
             Button doneButton = new Button("Add");
             doneButton.setOnAction(e -> {
-                addFluidBut(fluidName.getText(), fluidQuantity.getText());
+                fluidButtonClicked(fluidName.getText(), fluidQuantity.getText());
                 window.close();
             });
             VBox layout = new VBox(10);
@@ -213,23 +222,28 @@ public class MainController  {
         });
     }
 
-    void addFluidBut(String name, String quant) {
-        Fluids fluid = new Fluids(name, Integer.parseInt(quant));
-        calorieCounter.addFluid(fluid);
+    void fluidButtonClicked(String name, String quant) {
+        try {
+            Fluids fluid = new Fluids(name, quant);
+            calorieCounter.addFluid(fluid);
+        } catch (InvalidInputException exception) {
+            PopupController.popupMessage("Please enter appropriate name and valid quantity",
+                    "Quantity can only be of integer type");
+        }
     }
 
     @FXML void activityButton() {
         addActivityButton.setOnAction(event -> {
-            actButton();
+            activityButtonClicked();
         });
     }
 
-    void actButton() {
+    void activityButtonClicked() {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setMinWidth(350);
         Label gymLabel = new Label();
-        gymLabel.setText("Gymming Rigour (1-10)");
+        gymLabel.setText("Gymming Rigour (0-10)");
         TextField gymVal = new TextField();
         Label walkLabel = new Label();
         walkLabel.setText("Walking (km)");
@@ -251,10 +265,13 @@ public class MainController  {
     }
 
     void activityAction(String walkVal, String sleepVal, String gymVal) {
-        Activities a = new Activities(Double.parseDouble(walkVal),
-                Integer.parseInt(sleepVal),
-                Integer.parseInt(gymVal));
-        calorieCounter.addActivity(a);
+        try {
+            Activities a = new Activities(walkVal, sleepVal, gymVal);
+            calorieCounter.addActivity(a);
+        } catch (InvalidInputException exception) {
+            PopupController.popupMessage("Please enter appropriate values for each field",
+                    "All values should be numbers, and gym rigour must be between 0 and 10");
+        }
     }
 
     @FXML
@@ -289,22 +306,22 @@ public class MainController  {
         double gymValue = recommend.gymRigourSigmoid(goals.getDesiredGymRigour(),gymRig);
         ArrayList<Double> sigmoidValues = recommend.getMessage(weightVal, hydValue, sleepVal, gymValue);
         for (Double d : sigmoidValues) {
-            check(text, d, weightVal, hydValue, sleepVal, gymValue);
+            text = check(text, d, weightVal, hydValue, sleepVal, gymValue);
         }
         return text;
     }
 
-    void check(String text, Double d, double weightVal, double hydValue, double sleepVal, double gymValue) {
+    String check(String text, Double d, double weightVal, double hydValue, double sleepVal, double gymValue) {
         if (d == weightVal) {
             text = text + recommend.weightMessage(weightVal) + "\n";
         } else if (d == hydValue) {
             text = text + recommend.hydrationMessage(hydValue) + "\n";
         } else if (d == sleepVal) {
-            System.out.println(recommend.sleepMessage(sleepVal));
             text = text + recommend.sleepMessage(sleepVal) + "\n";
         } else {
             text = text + recommend.gymRigourMessage(gymValue) + "\n";
         }
+        return text;
     }
 
     @FXML void setSaveAndQuitButton() throws IOException {

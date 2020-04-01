@@ -1,20 +1,24 @@
 package model;
 
+import exceptions.InvalidInputException;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 // This class tests all the user stories
 
 class CalorieTest {
-    Food foodItem = new Food("Apple", 100);;
-    Fluids fluidItem1 = new Fluids("Water", 500);
-    Fluids fluidItem2 = new Fluids("juice", 500);
-    Activities act = new Activities(4.0, 6, 6);
+    Food foodItem = new Food("Apple", "100");;
+    Fluids fluidItem1 = new Fluids("Water", "500");
+    Fluids fluidItem2 = new Fluids("juice", "500");
+    Activities act = new Activities("4.0", "6", "6");
     CalorieCounter c = new CalorieCounter();
     Recommender rec = new Recommender();
-    Attributes a = new Attributes(1.8,65.0);
-    Goals goal = new Goals(63.0, 7, 5);
+    Attributes a = new Attributes("1.8","65.0");
+    Goals goal = new Goals("63.0", "7", "5");
     StoredData s = new StoredData(c,goal,a);
+
+    CalorieTest() throws InvalidInputException {
+    }
 
     @Test
     void testBMI() {
