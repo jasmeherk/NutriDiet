@@ -49,7 +49,8 @@ The classes that are robust are listed below and can be found in the model packa
 ##Phase 4 : Task 3
 I had no coupling issues as such however, while creating a popup error message in MainController, I realised
 that the new pop up window wasn't the responsibility of maincontroller, hence, created a separate class for it called PopUpController.
-Unfortunately, this is combined with Task 2 as I wasn't aware that separate commits were required
+Unfortunately, this is combined with Task 2 as I wasn't aware that separate commits were required. Also, I thought of refactoring some functions in Recommender class but
+took a call not to since the messages I was giving the user were very different even though the idea was similar for all kinds of messages.
 
 ##Instructions to grader 
 - Sometimes buttons require double click, but not always
