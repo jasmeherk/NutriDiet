@@ -1,4 +1,4 @@
-# NutriDiet
+# NutriDiet (Food Tracking System)
 
 ## CalorieTracker and Recommender
 
@@ -26,35 +26,16 @@ where they will stay stored really helps you track your progress. That was my in
 - As a user, I want to be able to get my BMI. 
 - As a user, I want to be able to save my data into a JSON file
 - As a user, I want to be able to read the data that has been saved in a JSON file and should be able to choose the file.
-
-##Phase 4: Task 2 
-I have chosen the following option 
-- Test and design a class that is robust. You must have at least one method that throws a checked 
-exception. You must have one test for the case where
- the exception is expected and another where the exception is not expected.
  
- My exception class is InvalidInputException as to ensure robustness,
+ My exception class is InvalidInputException which was created in order to ensure robustness,
 - I had to ensure that user enters the appropriate data type so as 
-to prevent NumberFormatException which is the unchecked exception.
+to prevent a NumberFormatException which is the relevant unchecked exception.
 - I had to ensure that the user also enters semantically relevant data which
  I checked with if conditions such as taking the value of gym rigour, height and weight
- 
-The classes that are robust are listed below and can be found in the model package:
-- Food
-- Fluids
-- Goals
-- Attributes
-- Activities
 
-##Phase 4 : Task 3
-I had no coupling issues as such however, while creating a popup error message in MainController, I realised
-that the new pop up window wasn't the responsibility of maincontroller, hence, created a separate class for it called PopUpController.
-Unfortunately, this is combined with Task 2 as I wasn't aware that separate commits were required. Also, I thought of refactoring some functions in Recommender class but
-took a call not to since the messages I was giving the user were very different even though the idea was similar for all kinds of messages.
-
-##Instructions to grader 
+## Other instructions
 - Sometimes buttons require double click, but not always
 - Each button is named and its function is pretty self explanatory based on the button name such as view button views, add button adds etc
 - The images (visual component) can be found when you click on any one of the add buttons (food,fluid,activity). These images were found online and are not mine.
- They were just used for the purpose of this project
+
  
