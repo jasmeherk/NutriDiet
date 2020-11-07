@@ -1,6 +1,8 @@
 # NutriDiet (Food Tracking System)
 
-## CalorieTracker and Recommender
+## CalorieTracker and Recommender 
+
+### Please ignore certain commit messages (had worked on the project in several phases)
 
 
 NutriDiet is a *CalorieTracking* app which will act as a diary for the food
